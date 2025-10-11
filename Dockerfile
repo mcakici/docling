@@ -1,7 +1,6 @@
 FROM ghcr.io/docling-project/docling-serve-cu128:latest
-
-RUN apt-get update && \
-    apt-get install -y tesseract-ocr-tur && \
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    tesseract-ocr tesseract-ocr-tur && \
     rm -rf /var/lib/apt/lists/*
-
-RUN tesseract --list-langs | grep tur
+ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/

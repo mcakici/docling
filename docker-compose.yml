@@ -1,25 +1,17 @@
 services:
   docling:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    image: docling-cu128-tur
     container_name: docling
     ports:
-      - "9881:9881"
+      - '9881:5001'
     environment:
       - DOCLING_SERVE_ENABLE_UI=1
-      - DOCLING_PORT=9881
-      - TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/tessdata
-      - TESSERACT_LANG=tur+eng
-    volumes:
-      - ./docling-data:/data
-    restart: unless-stopped
+      - TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/
+    gpus: all
     deploy:
       resources:
-        limits:
-          memory: 8G
         reservations:
-          memory: 4G
           devices:
             - driver: nvidia
               count: 1
