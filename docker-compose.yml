@@ -1,18 +1,22 @@
 services:
   docling:
     build: .
-    image: docling-cu128-tur
-    container_name: docling
+    container_name: docling-tesseract-tur
     ports:
-      - '9881:5001'
+      - "9881:5001"          # host:container
     environment:
       - DOCLING_SERVE_ENABLE_UI=1
-      - TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/
-    gpus: all
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+      - OMP_NUM_THREADS=4
+      - TESSDATA_PREFIX=/usr/share/tesseract/tessdata/
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    restart: unless-stopped
+
+  doc-converter:
+    build: ./doc_converter
+    container_name: doc-converter
+    ports:
+      - "9882:8000"
+    restart: unless-stopped
+    # volume yok, sadece /tmp kullanıyor → host'ı kirletmiyor
