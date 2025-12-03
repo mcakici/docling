@@ -23,8 +23,10 @@ services:
     build: ./doc_converter
     container_name: doc-converter
     ports:
-      - "9882:8000"
+      - "9882:9882" 
     restart: unless-stopped
     networks:
       - coolify
     # volume yok, sadece /tmp kullanıyor → host'ı kirletmiyor
+    # NOT: Container'lar arası erişim için: http://doc-converter:9882/doc-to-docx
+    # Host'tan erişim için: http://localhost:9882/doc-to-docx

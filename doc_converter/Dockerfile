@@ -24,6 +24,6 @@ WORKDIR /app
 
 COPY doc_to_docx_api.py /app/doc_to_docx_api.py
 
-EXPOSE 8000
+EXPOSE 9882
 
-CMD ["uvicorn", "doc_to_docx_api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "doc_to_docx_api:app", "--host", "0.0.0.0", "--port", "9882"]
