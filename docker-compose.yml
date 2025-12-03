@@ -1,3 +1,7 @@
+networks:
+  coolify:
+    external: true
+    name: coolify
 services:
   docling:
     build: .
@@ -12,6 +16,8 @@ services:
       - ./:/workspace
     working_dir: /workspace
     restart: unless-stopped
+    networks:
+      - coolify
 
   doc-converter:
     build: ./doc_converter
@@ -19,4 +25,6 @@ services:
     ports:
       - "9882:8000"
     restart: unless-stopped
+    networks:
+      - coolify
     # volume yok, sadece /tmp kullanıyor → host'ı kirletmiyor
